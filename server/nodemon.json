@@ -1,0 +1,11 @@
+{
+    "restartable": "rs",
+    "ignore": [".git", "node_modules/", "public/", "coverage/"],
+    "watch": ["./dist/"],
+    "execMap": {
+      "ts": "node -r ts-node/register"
+    },
+    "signal": "SIGINT",
+    "ext": "js,json,ts",
+    "delay": "2500"
+  }

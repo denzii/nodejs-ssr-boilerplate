@@ -1,0 +1,35 @@
+{
+	"presets": [
+		["@babel/preset-env",
+			{
+				"targets": "defaults"
+			}
+		],
+		"@babel/preset-typescript",
+		"@babel/react"
+	],
+	"plugins": [
+		"babel-plugin-transform-typescript-metadata",
+		["@babel/plugin-proposal-decorators", 
+			{
+				 "legacy": true 
+			}
+		],
+		["@babel/plugin-transform-runtime",
+			{
+			  "regenerator": true
+			}
+		],
+		["@babel/plugin-syntax-dynamic-import"],
+		["@babel/plugin-proposal-class-properties", 
+			{
+				 "loose": true 
+			}
+		],
+		["@babel/plugin-proposal-private-methods", 
+			{ 
+				"loose": true 
+			}
+		]
+	  ]
+}

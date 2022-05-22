@@ -1,0 +1,17 @@
+{
+    "coverageDirectory": "./coverage",
+    "testMatch": [
+        "**/?(*.)+(test).js"
+    ],
+    "moduleFileExtensions": [
+        "js"
+    ],
+	"testEnvironment": "node",
+    "transform": {},
+    "resetMocks": true,
+    "clearMocks": true,
+	"verbose": true,
+	"collectCoverageOnlyFrom": {
+        "dist/tests.test.js": true
+}
+}

@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  # mongodb:
+  #   image: mongo
+  #   ports:
+  #     - 27017:27017
+  #   volumes:
+  #     - mongodb-data:/data/db
+  server:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    # links:
+    #   - mongodb
+    restart: on-failure
+# volumes:
+#   mongodb-data:
+#     driver: local # actual storage path will be created by docker, this instructs it to create it on the host where the container is ran

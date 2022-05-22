@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  # mongodb:
+  #   image: mongo
+  #   ports:
+  #     - 27017:27017
+  #   volumes:
+  #     - mongodb-data:/data/db
+  server-dev:
+    build: 
+      context: ./
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./src:/home/node/app/src  # can have hot reloads if code is mounted on
+    # links:
+    #   - mongodb
+    restart: on-failure
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+   # do not need to run nodemon and webpack watch in parallel, NodemonWebpackPlugin integrates nodemon into the webpack watch
+    # this allows re-bundling when a change is made on the  volume containing code. Once bundle changes, nodemon can pick up the changes and restart.
+# volumes:
+#   mongodb-data:
+#     driver: local
