@@ -17,3 +17,10 @@
 - [] Websockets for non / endpoints
 - [] Graphql
 - [] Prisma
+
+
+# Running Locally
+
+`cd server && npm i && npm run build:dev`
+
+instructions for containerized runtime coming soon...
