@@ -1,5 +1,6 @@
 const path = require("path");
 const nodeExternals = require('webpack-node-externals');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const config = {
     entry: "./src/index.ts",
@@ -21,14 +22,25 @@ const config = {
                 use: [
                     {
                         loader: "babel-loader"
-                    }
+                    },
                 ]
+            },
+            {
+                test: /\.(c|sc)ss$/,
+                use: ["ignore-loader"]
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|svg|jpg|png|jpeg|webp)$/,
+                use: {
+                  loader: 'url-loader',
+                },
             },
 		]
     },
 	experiments: {
 		topLevelAwait: true,
 	},
+    plugins: [new MiniCssExtractPlugin()],
     resolve: {
 		fallback: {
             "fs": false

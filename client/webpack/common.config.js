@@ -1,12 +1,15 @@
 const path = require("path");
-const webpack = require("webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const config = {
-    entry: "./src/index.ts",
+    plugins: [new MiniCssExtractPlugin({ filename: "[name].css" })],
+    entry: {
+        app: "./src/index.tsx",
+        main: "./src/style/index.scss"
+    },
     output: {
-        path: path.resolve(__dirname, '../dist'),
-        filename: "main.js",
+        path: path.resolve(__dirname, '../../server/www'),
+        // filename: "[name].js",
 		clean: true,
     },
     module: {
@@ -22,6 +25,10 @@ const config = {
                     }
                 ]
             },
+            {
+                test: /\.(c|sc)ss$/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader', "sass-loader"],
+            },
 		]
     },
 	  experiments: {
@@ -31,7 +38,6 @@ const config = {
         extensions: ['.js', '.tsx', '.ts'],
         
     },
-    plugins: [new HtmlWebpackPlugin({"title": "Deniz Arca", "template":"./src/index.html"})],
 };
 
 module.exports = config;

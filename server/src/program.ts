@@ -7,10 +7,10 @@ import {  container, Lifecycle, scoped } from "tsyringe";
 import http from 'http';
 import stoppable from "stoppable"
 
-import ApiIndexController from "./controllers/api/index";
-import IndexController from "./controllers/app/index";
-import Environment from "./helpers/environment";
-import ServerHelper from "./helpers/server";
+import ApiIndexController from "./controller/api/index";
+import IndexController from "./controller/app/index";
+import Environment from "./helper/environment";
+import ServerHelper from "./helper/server";
 import { Socket } from "net";
 
 interface IProgram {
@@ -47,19 +47,31 @@ export default class Program implements IProgram {
 	}
 
 	registerStaticAssets: () => Program = () => {
-		const www = path.join(this.__dirname, '../www/');
-		this.app.use(express.static(www));
-		console.log(`All assets registered using path: ${www}`);
+		const serveOptions = {
+			dotfiles: 'ignore',
+			etag: true,
+			extensions: ["html, htm"],
+			index: false,
+			maxAge: "7d",
+			redirect: false,
+			setHeaders: (res: any, path: any, stat: any) => res.set("X-Content-Type-Options", "nosniff")
+		}
+		const clientBundle = path.join(this.__dirname, '../www/');
+		const assets = path.join(this.__dirname, "../public/");
+
+		this.app.use(express.static("www", serveOptions));
+		this.app.use(express.static("public", serveOptions));
+		console.log(`All assets registered using paths: ${clientBundle} & ${assets}`);
 
 		return this;
 	}
 
 	registerRoutes: () => Program = () => {
 		// api endpoints
-		this.app.use("/api", container.resolve(ApiIndexController).getRouter());
+		this.app.use("/api", container.resolve(ApiIndexController).Router());
 
 		// render root
-		this.app.use("/", container.resolve(IndexController).getRouter());
+		this.app.use("/", container.resolve(IndexController).Router());
 		
 		console.log(`Registered All routes.`);
 
