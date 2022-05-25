@@ -1,23 +1,22 @@
 # nodejs-ssr-boilerplate (Work In Progress)
 
 # Project Status
-- [x] Render JSX at / 
+- [x] Sends JSX as string on the / route on the server the page is requested in the browser and hydrates that markup on the client.
+- [x] Hot Reload for Bundled CSS on the server
+- [x] Sass
+- [x] Jest (bootstrapped as a second webpack entrypoint on the server) 
 - [x] Docker Image for server
 - [x] Custom Server Logic
      - [x] Retry port on server startup
      - [x] Watch for sigint signals etc. to handle graceful shutdowns
      - [x] Inversion of control with TSyringe dependency injection
      - [x] ENV variables supplied through webpack
-- [x] Hot Reload for Bundled CSS on the server
 - [x] Docker Compose for local development with hot reload (With DB image & volume boilerplate commented out)
 - [x] Docker Compose boilerplate for production (With DB image & volume boilerplate commented out)
-- [x] Jest bootstrapped as a second webpack entrypoint 
-- [x] Hydrate markup on the client
-- [x] Sass
 - [] React Router on the client
-- [] Websockets for non / endpoints
-- [] Graphql
-- [] Prisma
+- [] Graphql over Web sockets for async requests to the server
+- [] Prisma ORM
+- [] Code generation for graphql from a prisma schema to avoid writing boilerplate
 
 
 # Running Locally
