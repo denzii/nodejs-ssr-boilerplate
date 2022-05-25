@@ -7,7 +7,7 @@
 - [x] Jest (bootstrapped as a second webpack entrypoint on the server) 
 - [x] Docker Image for server
 - [x] Custom Server Logic
-     - [x] Retry port on server startup
+     - [ ] Retry port on server startup
      - [ ] Pick new port if retries fail a set amount of time
      - [x] Watch for sigint signals etc. to handle graceful shutdowns
      - [x] Inversion of control with TSyringe dependency injection
