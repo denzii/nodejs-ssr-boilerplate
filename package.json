@@ -1,0 +1,25 @@
+{
+  "name": "nodejs-ssr-boilerplate",
+  "version": "1.0.0",
+  "description": "Bootstrap Project for frontend and backend",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"(cd server;npm run dev)\" \"(cd client;npm start)\"",
+    "install": "concurrently \"(cd server;npm install)\" \"(cd client;npm install)\" \"(cd isomorphic;npm install)\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/denzii/nodejs-ssr-boilerplate.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/denzii/nodejs-ssr-boilerplate/issues"
+  },
+  "homepage": "https://github.com/denzii/nodejs-ssr-boilerplate#readme",
+  "dependencies": {
+    "concurrently": "^7.2.1"
+  }
+}
