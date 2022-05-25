@@ -8,9 +8,9 @@ export default class App {
     return <>
         <React.StrictMode>
         <html lang="en">
+          {/*@ts-ignore Helmet is valid jsx but something with the package itself is causing an error*/}
           <Helmet>
           <meta charSet="utf-8" />
-            <script type="application/javascript" src="/main.js"></script> 
             <link rel="stylesheet" type="text/css" href="/main.css"></link>
             <link rel="icon" href="/favicon.ico" />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -30,6 +30,8 @@ export default class App {
             <div id="app"> 
               <div>Hello World</div>
           </div>
+            <script type="application/javascript" src="/main.js"></script> 
+            <script src={`${process.env.BROWSER_REFRESH_URL}`}></script>
          </body>
         </html>
       </React.StrictMode>

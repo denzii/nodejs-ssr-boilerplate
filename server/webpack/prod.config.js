@@ -1,5 +1,5 @@
 const { merge } = require("webpack-merge");
-const common = require("./common.config");
+const common = require("./common.config.js");
 const Dotenv = require("dotenv-webpack");
 
 const dev = {

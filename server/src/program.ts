@@ -14,25 +14,31 @@ import ServerHelper from "./helper/server";
 import { Socket } from "net";
 
 interface IProgram {
-	app: ExpressApplication;
-	server: stoppable.WithStop & http.Server;
 	__dirname: string;
+	clientBundlePath: string;
+	asseticPath: string;
+	server: stoppable.WithStop & http.Server;
+	app: ExpressApplication;
 	env: string;
 	sockets: Set<Socket>;
 }
 
 @scoped(Lifecycle.ResolutionScoped)
 export default class Program implements IProgram {
-	app: ExpressApplication;
-	server: stoppable.WithStop & http.Server;
-	__dirname: string;
-	env: string;
-	sockets: Set<Socket>;
+	public __dirname: string;
+	public clientBundlePath: string;
+	public asseticPath: string;
+	public server: stoppable.WithStop & http.Server;
+	readonly app: ExpressApplication;
+	readonly env: string;
+	readonly sockets: Set<Socket>;	
 
 	constructor() {
+		this.__dirname = Environment.getDirname(import.meta.url);
+		this.clientBundlePath =  path.join(this.__dirname, '../www');
+		this.asseticPath = path.join(this.__dirname, "../public");
 		this.app = express();
 		this.server = stoppable(http.createServer(this.app));
-		this.__dirname = Environment.getDirname(import.meta.url);
 		this.env = String(process.env.NODE_ENV).toLowerCase();
 		this.sockets = new Set<Socket>();
 	}
@@ -42,26 +48,28 @@ export default class Program implements IProgram {
 		this.app.use(express.urlencoded({ extended: false }));
 		this.app.use(cookieParser());
 		this.app.use(cors());
-
+		
 		return this;
 	}
 
 	registerStaticAssets: () => Program = () => {
 		const serveOptions = {
 			dotfiles: 'ignore',
-			etag: true,
+			etag: false,
 			extensions: ["html, htm"],
 			index: false,
-			maxAge: "7d",
 			redirect: false,
-			setHeaders: (res: any, path: any, stat: any) => res.set("X-Content-Type-Options", "nosniff")
+			setHeaders: (res: any, path: any, stat: any) => {
+				res.set("X-Content-Type-Options", "nosniff");
+				res.set('Cache-Control', 'no-store');
+			}
 		}
-		const clientBundle = path.join(this.__dirname, '../www/');
-		const assets = path.join(this.__dirname, "../public/");
 
 		this.app.use(express.static("www", serveOptions));
 		this.app.use(express.static("public", serveOptions));
-		console.log(`All assets registered using paths: ${clientBundle} & ${assets}`);
+		this.app.disable("view cache");
+
+		console.log(`All assets registered using paths: ${this.clientBundlePath} & ${this.asseticPath}`);
 
 		return this;
 	}
@@ -107,6 +115,7 @@ export default class Program implements IProgram {
 	}
 
 	async StartServer() {
+		// express server setup. ?????????????
 		const port: number = Number(process.env.PORT);
 		const hostname: string = String(process.env.HOST);
 		
@@ -117,7 +126,11 @@ export default class Program implements IProgram {
 		this.server.on('error', error => ServerHelper.serverOnError.bind(this, error, port));
 		this.server.on('listening', ServerHelper.serverOnListen.bind(this, port));
 		
-		this.server = this.server.listen(port, hostname);
+		this.server = this.server.listen(port, hostname, () => {
+			process.send && process.send({event:"online" }) && console.log("Browser refresh server is online and listening on port: " + port); 
+			var patterns = '*.css *.less *.styl *.scss *.sass *.png *.jpeg *.jpg *.gif *.webp *.svg';
+			require('lasso/browser-refresh').enable(patterns);
+		});
 	}
 
 	async EnvTeardown() {
@@ -125,7 +138,7 @@ export default class Program implements IProgram {
 
 			this.server.close();
 			this.server.stop();
-
+			
 			console.log("All active handles have (hopefully) been killed. Gracefully exiting in 2 seconds.");
 			await Environment.sleep(2000);
 
