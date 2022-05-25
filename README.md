@@ -25,7 +25,11 @@
 This project is a full-stack app and the express server on the backend requires client bundles to be generated ahead of time so they could be used as static assets. A bootstrap project is used to simplify usage!
 
 `cd nodejs-ssr-boilerplate` (go to the root to use the bootstrap project)
+
+
 `npm run install` (runs npm install concurrently across the frontend/backend projects and the isomorphic local library)
+
+
 `npm start` (Transpile & Run the server through the browser-refresh library on the server, Transpile & watch the frontend code for changes )
 
 
