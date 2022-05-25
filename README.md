@@ -26,7 +26,7 @@ This project is a full-stack app and the express server on the backend requires 
 `cd nodejs-ssr-boilerplate` (go to the root to use the bootstrap project)
 
 
-`npm run install` (runs npm install concurrently across the frontend/backend projects and the isomorphic local library)
+`npm i && npm run install` (installs the concurrently library to run npm install concurrently across the frontend/backend projects and the isomorphic local library)
 
 
 `npm start` (Transpile & Run the server through the browser-refresh library on the server, Transpile & watch the frontend code for changes )
