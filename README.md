@@ -8,6 +8,7 @@
      - [x] Watch for sigint signals etc. to handle graceful shutdowns
      - [x] Inversion of control with TSyringe dependency injection
      - [x] ENV variables supplied through webpack
+- [x] Hot Reload for Bundled CSS on the server
 - [x] Docker Compose for local development with hot reload (With DB image & volume boilerplate commented out)
 - [x] Docker Compose boilerplate for production (With DB image & volume boilerplate commented out)
 - [x] Jest bootstrapped as a second webpack entrypoint 
