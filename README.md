@@ -13,6 +13,7 @@
      - [x] ENV variables supplied through webpack
 - [x] Docker Compose for local development with hot reload (With DB image & volume boilerplate commented out)
 - [x] Docker Compose boilerplate for production (With DB image & volume boilerplate commented out)
+- [] Universal State Management
 - [] React Router on the client
 - [] Graphql over Web sockets for async requests to the server
 - [] Prisma ORM
