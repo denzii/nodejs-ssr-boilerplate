@@ -1,7 +1,7 @@
 # nodejs-ssr-boilerplate (Work In Progress)
 
 # Project Status
-- [x] Sends JSX as string on the / route on the server the page is requested in the browser and hydrates that markup on the client.
+- [x] Sends JSX as string from the server on the root route when the page is requested by the browser... Hydrates that markup on the client after fetching the resulting HTML.
 - [x] Hot Reload for Bundled CSS on the server
 - [x] Sass
 - [x] Jest (bootstrapped as a second webpack entrypoint on the server) 
