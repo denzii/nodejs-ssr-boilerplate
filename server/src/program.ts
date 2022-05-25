@@ -138,8 +138,8 @@ export default class Program implements IProgram {
 
 			this.server.close();
 			this.server.stop();
-			
-			console.log("All active handles have (hopefully) been killed. Gracefully exiting in 2 seconds.");
+			const gracefulExitDelayMs = 2000;
+			console.log("All active handles have (hopefully) been killed. Gracefully exiting in " + gracefulExitDelayMs + "ms");
 			await Environment.sleep(2000);
 
 		} catch (e: any) {
