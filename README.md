@@ -34,20 +34,14 @@
 
 `. ./.setupPostgres.sh` (Ensures postgres is installed, sets up a role and db so the psql command will work without problems on the linux user)
 
-
-`npx prisma migrate dev --name init` (the schema exist with boilerplate relations so just apply a migration to create the tables)
-
-
-`npx prisma db seed` ( seed the created tables with the data inside the prisma/seed.js file)
-
-`npx prisma generate` ( generate the code & types for our schema )
-
+`npm run prisma` (This runs npx prisma migrate dev --name init && npx prisma db seed && npx prisma generate)
+* migrate dev creates the initial  migration to match the DB with the schema
+* db seed generates some dummy data in that DB
+* generate creates the prisma client and types associated with the schema to query the DB
 
 This project is a full-stack app and the express server on the backend requires client bundles to be generated ahead of time so they could be used as static assets. A bootstrap project is used to simplify usage!
 
 `cd nodejs-ssr-boilerplate` (go to the root to use the bootstrap project)
-
-
 
 
 `npm run start:local` (Transpile & Run the server through the browser-refresh library on the server, Transpile & watch the frontend code for changes )
