@@ -5,19 +5,19 @@
 - [x] Hot Reload for Bundled CSS on the server
 - [x] Sass
 - [x] Jest (bootstrapped as a second webpack entrypoint on the server) 
-- [x] Docker Image for server
+- [x] Docker Image
 - [x] Custom Server Logic
      - [ ] Retry port on server startup
      - [ ] Pick new port if retries fail a set amount of time
      - [x] Watch for sigint signals etc. to handle graceful shutdowns
      - [x] Inversion of control with TSyringe dependency injection
      - [x] ENV variables supplied through webpack
-- [x] Docker Compose for local development with hot reload (With DB image & volume boilerplate commented out)
-- [x] Docker Compose boilerplate for production (With DB image & volume boilerplate commented out)
+- [x] Docker Compose for local development with hot reload
+- [ ] Docker Compose boilerplate for production
 - [ ] Universal State Management
 - [ ] React Router on the client
 - [ ] Graphql over Web sockets for async requests to the server
-- [ ] Prisma ORM
+- [x] Prisma ORM
 - [ ] Code generation for graphql from a prisma schema to avoid writing boilerplate
 
 
@@ -56,7 +56,7 @@ This project is a full-stack app and the express server on the backend requires 
 # Running Through Containers
 
 * Please do not forget to update the prisma/.env file connection string to reflect on the fact that we are connecting to postgres on a container by changing 
- `@localhost:5434`  To `@postgresql:5432` (Note the difference in the port
+ `@localhost:5434`  To `@postgresql:5432` (Note the difference in the port)
 
 `cd nodejs-ssr-boilerplate` (Go into the bootstrap project)
 `npm start` (Run docker-compose up -f docker-compose.dev.yaml) 
