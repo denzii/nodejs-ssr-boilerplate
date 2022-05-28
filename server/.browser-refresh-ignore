@@ -10,3 +10,4 @@ static/
 
 src/
 dist/
+../isomorphic/

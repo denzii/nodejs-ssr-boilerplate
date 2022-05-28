@@ -6,6 +6,7 @@ const program = new Program()
 .registerMiddleware()
 .registerStaticAssets();
 
-program.registerRoutes()
-	   .registerAppEvents()
-	   .StartServer();
+(await program.registerRoutes())
+			  .registerAppEvents()
+	   		  .MigrateDatabase()
+	   		  .StartServer();

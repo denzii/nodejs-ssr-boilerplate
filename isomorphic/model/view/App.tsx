@@ -4,7 +4,8 @@ import Helmet, { HelmetData } from 'react-helmet';
 import ReactDOMServer from "react-dom/server";
 
 export default class App {
-  static Component: () => JSX.Element = () => {
+  static Component: (props: any) => JSX.Element = (props) => {
+    //yaa saealsadm
     return <>
         <React.StrictMode>
         <html lang="en">
@@ -28,7 +29,7 @@ export default class App {
           <body>
             <noscript>You need to enable JavaScript to run this app.</noscript>
             <div id="app"> 
-              <div>Hello World</div>
+              <div>{props[0].name}</div>
           </div>
             <script type="application/javascript" src="/main.js"></script> 
             <script src={`${process.env.BROWSER_REFRESH_URL}`}></script>
@@ -37,6 +38,6 @@ export default class App {
       </React.StrictMode>
     </>
   }
-  static ToString: () => string = () => ReactDOMServer.renderToString(<App.Component/>);
+  static ToString: (data:any) => string = (data) => ReactDOMServer.renderToString(<App.Component {...data}/>);
   static GetHead: () => HelmetData = () => Helmet.renderStatic();
 }

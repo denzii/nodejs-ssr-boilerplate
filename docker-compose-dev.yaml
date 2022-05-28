@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+  postgresql:
+    image: postgres
+    ports:
+      - 5434:5434
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: denzi
+    expose:
+      - 5434
+    volumes:
+      - postgres-data:/var/lib/postgresql/13/main
+  server-dev:
+    environment:
+      MIGRATE_ON_STARTUP: "false"
+    depends_on:
+      - postgresql
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./server/src:/home/node/root/server/src
+      - ./isomorphic/:/home/node/root/isomorphic
+      - ./client/src/:/home/node/root/client/src
+    links:
+      - postgresql
+    restart: on-failure
+    expose:
+      - 3000
+      - 34669
+    ports:
+      - 3000:3000
+      - 34669:34669 # browser-refresh port
+volumes:
+  postgres-data:
+    driver: local

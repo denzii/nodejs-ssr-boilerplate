@@ -69,19 +69,19 @@ export default class Program implements IProgram {
 		this.app.use(express.static("public", serveOptions));
 		this.app.disable("view cache");
 
-		console.log(`All assets registered using paths: ${this.clientBundlePath} & ${this.asseticPath}`);
+		console.info(`All assets registered using paths: ${this.clientBundlePath} & ${this.asseticPath}`);
 
 		return this;
 	}
 
-	registerRoutes: () => Program = () => {
+	registerRoutes:() => Promise<Program> = async() => {
 		// api endpoints
 		this.app.use("/api", container.resolve(ApiIndexController).Router());
 
 		// render root
-		this.app.use("/", container.resolve(IndexController).Router());
+		this.app.use("/", await container.resolve(IndexController).Router());
 		
-		console.log(`Registered All routes.`);
+		console.info(`Registered All routes.`);
 
 		return this;
 	}
@@ -104,7 +104,7 @@ export default class Program implements IProgram {
 			this.sockets.add(socket);
 		
 			this.server.once('close', () => {
-				console.log("Closing all connected sockets");
+				console.info("Closing all connected sockets");
 				this.sockets.forEach(function(value) {
 					value.destroy();
 				})			
@@ -113,33 +113,59 @@ export default class Program implements IProgram {
 
 		return this;
 	}
+	// ?? ?????? ???///
 
-	async StartServer() {
-		// express server setup. ?????????????
+	MigrateDatabase: () => Program = () => {
+		// this is useful for auto migrations & seed when the app is ran for the first time
+		// after the first deploy, we can set the env var to false to disable this
+		if(process.env.MIGRATE_ON_STARTUP){
+			try{
+				require('child_process')
+				.exec("npx prisma migrate dev --name init && npx prisma db seed")
+				&& console.info("Database migrated and seeded");
+			}
+			catch(e){
+				console.error("things went wrong while migrating and seeding the database, here is your exception: ", e);
+			}
+		}
+		
+		return this;
+	}
+
+	 StartServer: () => void = async() => {
+		// express server setup
 		const port: number = Number(process.env.PORT);
 		const hostname: string = String(process.env.HOST);
 		
-		if(!await ServerHelper.ensurePortFree(port)){
+		if(!await ServerHelper.ensurePortFreeAsync(port)){
 			throw new Error("supplied port is already in use.");
 		}
 
 		this.server.on('error', error => ServerHelper.serverOnError.bind(this, error, port));
 		this.server.on('listening', ServerHelper.serverOnListen.bind(this, port));
 		
-		this.server = this.server.listen(port, hostname, () => {
-			process.send && process.send({event:"online" }) && console.log("Browser refresh server is online and listening on port: " + port); 
-			var patterns = '*.css *.less *.styl *.scss *.sass *.png *.jpeg *.jpg *.gif *.webp *.svg';
-			require('lasso/browser-refresh').enable(patterns);
+		this.server.listen(port, hostname, async() => {
+			if(Environment.isDev()){
+				process.send 
+				&& process.send({event:"online"}) 
+				&& console.info("Browser refresh server is online and its WS client script is being served on port: " + process.env.BROWSER_REFRESH_PORT);
+				
+				require('lasso/browser-refresh')
+				.enable('*.css *.less *.styl *.scss *.sass *.png *.jpeg *.jpg *.gif *.webp *.svg');
+
+				const open = require("open");
+				open("http://localhost:" + port);
+			}		
 		});
 	}
 
-	async EnvTeardown() {
+	 EnvTeardown: () => void = async() => {
 		try {
 
 			this.server.close();
 			this.server.stop();
 			const gracefulExitDelayMs = 2000;
-			console.log("All active handles have (hopefully) been killed. Gracefully exiting in " + gracefulExitDelayMs + "ms");
+			console.info("All active handles have (hopefully) been killed. Gracefully exiting in " + gracefulExitDelayMs + "ms");
 			await Environment.sleep(2000);
 
 		} catch (e: any) {

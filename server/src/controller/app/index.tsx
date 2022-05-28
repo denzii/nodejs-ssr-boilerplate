@@ -1,3 +1,4 @@
+import { PrismaClient } from '@prisma/client';
 import { Router, Request, Response } from 'express';
 import { autoInjectable } from 'tsyringe';
 import View from '../../view';
@@ -10,13 +11,17 @@ export default class IndexController {
 		this.router = Router();
 	}
 
-	public Router = () => {
-		this.router.get('/', this.index);
+	public Router = async() => {
+
+		this.router.get('/', await this.index);
 		
 		return this.router;
 	}
 
-	private index = (req: Request, res: Response) => res
-		.status(200)
-		.send(View("index"));
+	private index = async(req: Request, res: Response) => {
+		const prisma = new PrismaClient();
+
+		res.status(200)
+		.send(View("index", await prisma.author.findMany()));
+	}
 }

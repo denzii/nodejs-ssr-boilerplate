@@ -3,8 +3,11 @@
   "version": "0.0.0",
   "main": "index.ts",
   "private": true,
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
   "scripts": {
-    "startTEST": "export NODE_ENV=development& nodemon --verbose --config nodemon.json --exec \" npm run build:dev && node ./dist/main.js\"",
+    "prisma": "npx prisma migrate dev --name init && npx prisma db seed && npx prisma generate",
     "start": "export NODE_ENV=development&  nodemon --verbose --config nodemon.json --exec \"node ./dist/main.js\"",
     "start:prod": "export NODE_ENV=production & node ./dist/main.js",
     "dev": "npm run build:dev && concurrently  \"webpack --config ./webpack/dev.config.js -w\" \"browser-refresh ./dist/main.js\"",
@@ -16,6 +19,7 @@
     "test:coverage": "crossenv NODE_ENV=test& jest --coverage -c ./jest.unit.json"
   },
   "dependencies": {
+    "@prisma/client": "^3.14.0",
     "@types/react-helmet": "^6.1.5",
     "@types/react-router": "^5.1.18",
     "browser-refresh": "^1.7.3",
@@ -72,6 +76,8 @@
     "node-sass": "^7.0.1",
     "nodemon": "^2.0.7",
     "nodemon-webpack-plugin": "^4.5.2",
+    "open": "^8.4.0",
+    "prisma": "^3.14.0",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
