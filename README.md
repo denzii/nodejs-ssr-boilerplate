@@ -1,4 +1,4 @@
-# nodejs-ssr-boilerplate (Work In Progress)
+# React SSR Made Easy! (Work In Progress)
 
 # Project Status
 - [x] Sends JSX as string from the server on the root route when the page is requested by the browser... Hydrates that markup on the client after fetching the resulting HTML.
