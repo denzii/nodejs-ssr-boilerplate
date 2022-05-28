@@ -22,13 +22,19 @@
 
 
 # Running Locally
+`npm i` (installs the concurrently library to run npm install concurrently across the frontend/backend projects and the isomorphic local library)
+
+Preferred way of running things is using containers, however if for any reason you need to run this locally, please install postgres on your linux first.
+`cd nodejs-ssr-boilerplate/src/script` (go to the root to use the bootstrap project)
+
+
+`. ./.setupPostgres.sh` (Ensures postgres is installed, sets up a role and db so the psql command will work without problems on the linux user)
 
 This project is a full-stack app and the express server on the backend requires client bundles to be generated ahead of time so they could be used as static assets. A bootstrap project is used to simplify usage!
 
 `cd nodejs-ssr-boilerplate` (go to the root to use the bootstrap project)
 
 
-`npm i && npm run install` (installs the concurrently library to run npm install concurrently across the frontend/backend projects and the isomorphic local library)
 
 
 `npm start` (Transpile & Run the server through the browser-refresh library on the server, Transpile & watch the frontend code for changes )
