@@ -24,7 +24,10 @@
 # Running Locally
 `npm i` (installs the concurrently library to run npm install concurrently across the frontend/backend projects and the isomorphic local library)
 
-Preferred way of running things is using containers, however if for any reason you need to run this locally, please install postgres on your linux first.
+* Preferred way of running things is using containers, however if for any reason you need to run this locally, please install postgres on your linux first using the bash script below.
+* Please do not forget to update the prisma/.env file connection string to reflect on the fact that we are connecting to postgres locally by changing 
+`@postgresql:5432` To `@localhost:5432`
+
 
 `cd nodejs-ssr-boilerplate/src/script` (go to the root to use the bootstrap project)
 
@@ -33,6 +36,11 @@ Preferred way of running things is using containers, however if for any reason y
 
 
 `npx prisma migrate dev --name init` (the schema exist with boilerplate relations so just apply a migration to create the tables)
+
+
+`npx prisma db seed` ( seed the created tables with the data inside the prisma/seed.js file)
+
+`npx prisma generate` ( generate the code & types for our schema )
 
 
 This project is a full-stack app and the express server on the backend requires client bundles to be generated ahead of time so they could be used as static assets. A bootstrap project is used to simplify usage!
