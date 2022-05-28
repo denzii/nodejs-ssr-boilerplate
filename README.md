@@ -26,7 +26,7 @@
 
 * Preferred way of running things is using containers, however if for any reason you need to run this locally, please install postgres on your linux first using the bash script below.
 * Please do not forget to update the prisma/.env file connection string to reflect on the fact that we are connecting to postgres locally by changing 
-`@postgresql:5432` To `@localhost:5432`
+`@postgresql:5432` To `@localhost:5434` (Note the difference in the port)
 
 
 `cd nodejs-ssr-boilerplate/src/script` (go to the root to use the bootstrap project)
@@ -50,9 +50,13 @@ This project is a full-stack app and the express server on the backend requires 
 
 
 
-`npm start` (Transpile & Run the server through the browser-refresh library on the server, Transpile & watch the frontend code for changes )
+`npm run start:local` (Transpile & Run the server through the browser-refresh library on the server, Transpile & watch the frontend code for changes )
 
 
 # Running Through Containers
 
-instructions for containerized runtime coming soon...
+* Please do not forget to update the prisma/.env file connection string to reflect on the fact that we are connecting to postgres on a container by changing 
+ `@localhost:5434`  To `@postgresql:5432` (Note the difference in the port
+
+`cd nodejs-ssr-boilerplate` (Go into the bootstrap project)
+`npm start` (Run docker-compose up -f docker-compose.dev.yaml) 
