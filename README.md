@@ -56,7 +56,7 @@ This project is a full-stack app and the express server on the backend requires 
 * Update the prisma/.env file connection string to reflect on the fact that we are connecting to postgres on a container by changing 
  `@localhost:5434`  To `@postgresql:5432` (Note the difference in the port)
 
-* Update the server-dev service environment variable `MIGRATE_ON_STARTUP` to true if you did not set up the DB locally before. The DB data is mounted on the container as a volume, we would like to create tables & generate seed data when running for the first time!
+* Update the server-dev service environment variables inside docker-compose-dev.yaml... `MIGRATE_ON_STARTUP` to true and `RUNTIME_ENV` to "container" if you did not set up the DB locally before. The DB data is mounted on the container as a volume, we would like to create tables & generate seed data when running for the first time!
 
 * Ensure that the docker-compose version is above v2.0 with docker-compose -v
 
