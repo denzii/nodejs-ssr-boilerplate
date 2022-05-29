@@ -28,10 +28,7 @@
 # Running Locally
 `npm i` (installs the concurrently library to run npm install concurrently across the frontend/backend projects and the isomorphic local library)
 
-* Preferred way of running things is using containers, however if for any reason you need to run this locally, please install postgres on your linux first using the bash script below.
-* Please do not forget to update the prisma/.env file connection string to reflect on the fact that we are connecting to postgres locally by changing 
-`@postgresql:5432` To `@localhost:5434` (Note the difference in the port)
-
+* Preferred way of running things is using containers, however if for any reason you need to run this locally, please install postgres on your linux first using the bash script below. This also prints out the required connection string for the DB.
 
 `cd nodejs-ssr-boilerplate/src/script` (go to the root to use the bootstrap project)
 
@@ -53,10 +50,7 @@ This project is a full-stack app and the express server on the backend requires 
 
 # Running Through Containers
 
-* Update the prisma/.env file connection string to reflect on the fact that we are connecting to postgres on a container by changing 
- `@localhost:5434`  To `@postgresql:5432` (Note the difference in the port)
-
-* Update the server-dev service environment variables inside docker-compose-dev.yaml... `MIGRATE_ON_STARTUP` to true and `RUNTIME_ENV` to "container" if you did not set up the DB locally before. The DB data is mounted on the container as a volume, we would like to create tables & generate seed data when running for the first time!
+* If running for the first time, update the server-dev service environment variables inside docker-compose-dev.yaml... `MIGRATE_ON_STARTUP` to true and `RUNTIME_ENV` to "container". The DB data is mounted on the container as a volume, we would like to create tables & generate seed data when running for the first time!
 
 * Ensure that the docker-compose version is above v2.0 with docker-compose -v
 
