@@ -11,6 +11,8 @@
      - [x] Watch for sigint signals etc. to handle graceful shutdowns
      - [x] Inversion of control with TSyringe dependency injection
      - [x] ENV variables supplied through webpack
+- [x] Bash script for setting up postgresql locally
+- [x] Bash script for extra control over container orchestration through Docker Compose 
 - [x] Docker Compose for local development with hot reload
 - [ ] Docker Compose boilerplate for production
 - [ ] Universal State Management
@@ -51,13 +53,13 @@ This project is a full-stack app and the express server on the backend requires 
 
 # Running Through Containers
 
-* Please do not forget to update the prisma/.env file connection string to reflect on the fact that we are connecting to postgres on a container by changing 
+* Update the prisma/.env file connection string to reflect on the fact that we are connecting to postgres on a container by changing 
  `@localhost:5434`  To `@postgresql:5432` (Note the difference in the port)
 
-* Also update the server-dev service environment variable `MIGRATE_ON_STARTUP` to true if you did not set up the DB locally before. The DB data is mounted on the container as a volume, we would like to create tables & generate seed data when running for the first time!
+* Update the server-dev service environment variable `MIGRATE_ON_STARTUP` to true if you did not set up the DB locally before. The DB data is mounted on the container as a volume, we would like to create tables & generate seed data when running for the first time!
 
+* Ensure that the docker-compose version is above v2.0 with docker-compose -v
 
 `cd nodejs-ssr-boilerplate` (Go into the bootstrap project)
 
-
-`npm start` (Run docker-compose up -f docker-compose.dev.yaml) 
+`npm start` (Run the /server/script/.runContainers.sh script which adds additional logic around docker-compose) 
