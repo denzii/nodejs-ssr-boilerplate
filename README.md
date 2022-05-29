@@ -71,10 +71,19 @@ If you do not, use the following commands:
 `docker exec -it sinda-ssr-server /bin/sh` (This goes into the container where we have access to npm)
 
 To install a dependency on one of the projects, all variations have been listed for convenience:
-client: `(cd client; npm install example-package)` 
 
-server: `(cd server; npm install example-package)` 
+client: 
 
-isomorphic lib: `(cd isomorphic; npm install example-package)`
+`(cd client; npm install example-package)` 
 
-bootstrap project: `npm install example-package` 
+server: 
+
+`(cd server; npm install example-package)` 
+
+isomorphic lib: 
+
+`(cd isomorphic; npm install example-package)`
+
+bootstrap project: 
+
+`npm install example-package` 
