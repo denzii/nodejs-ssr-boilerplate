@@ -16,7 +16,7 @@
 - [x] Docker Compose for local development with hot reload
 - [ ] Docker Compose boilerplate for production
 - [ ] Universal State Management
-- [ ] SPA Routing via React Router
+- [ ] Universal Routing through Express
 - [ ] Prisma Schema with a CMS Domain for managing pages & content
 - [ ] Auth Server
 - [ ] Graphql over Web sockets for async requests to the server
