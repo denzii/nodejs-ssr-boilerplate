@@ -66,8 +66,9 @@ This project is a full-stack app and the express server on the backend requires 
 
 Things to note about using the containers:
 
-* To use this workflow, it is needed to install any packages which we might need within the container as the npm install x command would fail without having npm binary set up on the host. If you have npm already than great, install packages as you would normally... 
-If you do not, use the following commands:
+* To use this workflow, it is needed to install any packages which we might need within the container as we won't have thenpm binary locally.
+
+
 `docker exec -it sinda-ssr-server /bin/sh` (This goes into the container where we have access to npm)
 
 To install a dependency on one of the projects, all variations have been listed for convenience:
