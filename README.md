@@ -69,11 +69,12 @@ Things to note about using the containers:
 * To use this workflow, it is needed to install any packages which we might need within the container as the npm install x command would fail without having npm binary set up on the host. If you have npm already than great, install packages as you would normally... 
 If you do not, use the following commands:
 `docker exec -it sinda-ssr-server /bin/sh` (This goes into the container where we have access to npm)
-`(cd client; npm install example-package)` (This installs whichever package we might need to install)
 
-* Unfortunately there is a problem with the volumes at this point which is preventing the local package.json from updating after the container package.json is updated. To work around that we can output the value which gets appended on the container package.json and enter it in the local version manually for now...
-`VERSION=$(cat client/package.json | jq ".dependencies.example-package")` (Get the version of the package which was recently installed)
-`printf "example-package:$VERSION"` (Print the line which needs to be amended to the local package.json)
+To install a dependency on one of the projects, all variations have been listed for convenience:
+client: `(cd client; npm install example-package)` 
 
-A single line and more implicitly documented version is:
-`DEPENDENCY='colors';(cd client;npm i $DEPENDENCY) && VERSION=$(cat client/package.json | jq ".dependencies.$DEPENDENCY") && printf "please add the following line to your package.json dependencies or devDependencies" && printf "\n\n\r\r$DEPENDENCY:$VERSION\n\n"` (Fetches the dependency from the container package.json so it can be pasted in the local)
+server: `(cd server; npm install example-package)` 
+
+isomorphic lib: `(cd isomorphic; npm install example-package)`
+
+bootstrap project: `npm install example-package` 
