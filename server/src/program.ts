@@ -118,7 +118,7 @@ export default class Program implements IProgram {
 	MigrateDatabase: () => Program = () => {
 		// this is useful for auto migrations & seed when the app is ran for the first time
 		// after the first deploy, we can set the env var to false to disable this
-		if(process.env.MIGRATE_ON_STARTUP){
+		if(Environment.isContainerised() && process.env.MIGRATE_ON_STARTUP){
 			try{
 				require('child_process')
 				.exec("npx prisma migrate dev --name init && npx prisma db seed")

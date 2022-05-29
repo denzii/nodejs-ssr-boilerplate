@@ -2,6 +2,7 @@ version: '3.8'
 services:
   postgresql:
     image: postgres
+    container_name: sinda-ssr-postgres
     ports:
       - 5434:5434
     environment:
@@ -13,8 +14,10 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/13/main
   server-dev:
+    container_name: sinda-ssr-server
     environment:
       MIGRATE_ON_STARTUP: "false"
+      RUNTIME_ENV: "container"
     depends_on:
       - postgresql
     build: 
