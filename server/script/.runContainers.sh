@@ -22,7 +22,7 @@ if [ "$COMPOSE_MAJOR_VERSION" != "2" ]; then
     return 1;
 fi
 
-docker-compose -f docker-compose-dev.yaml up --force-recreate --always-recreate-deps --build --wait;
+docker-compose -f docker-compose-dev.yaml up --force-recreate --always-recreate-deps --wait;
 
 if [ "$PWD" != "$REPO_ROOT" ]; then
     printf "\n";

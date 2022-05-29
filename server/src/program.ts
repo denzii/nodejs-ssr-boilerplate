@@ -12,6 +12,7 @@ import IndexController from "./controller/app/index";
 import Environment from "./helper/environment";
 import ServerHelper from "./helper/server";
 import { Socket } from "net";
+import { config } from "dotenv";
 
 interface IProgram {
 	__dirname: string;
@@ -113,7 +114,6 @@ export default class Program implements IProgram {
 
 		return this;
 	}
-	// ?? ?????? ???///
 
 	MigrateDatabase: () => Program = () => {
 		// this is useful for auto migrations & seed when the app is ran for the first time
@@ -121,7 +121,7 @@ export default class Program implements IProgram {
 		if(Environment.isContainerised() && process.env.MIGRATE_ON_STARTUP){
 			try{
 				require('child_process')
-				.exec("npx prisma migrate dev --name init && npx prisma db seed")
+				.exec("dotenv -e ./prisma/.env npx prisma migrate dev --name init && npx prisma db seed")
 				&& console.info("Database migrated and seeded");
 			}
 			catch(e){

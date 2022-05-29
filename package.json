@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "migrate": "(cd server;npx prisma migrate dev --name init && npx prisma db seed)",
-    "start:local": "concurrently \"(cd server;npm run dev)\" \"(cd client;npm start)\"",
+    "start:local": "dotenv -e ./server/prisma/local.env concurrently \"(cd server;npm run dev)\" \"(cd client;npm start)\"",
+    "start:image:internal": "dotenv -e ./server/prisma/.env  concurrently \"(cd server;npm run dev)\" \"(cd client;npm start)\"",
     "start": "chmod +x ./server/script/.runContainers.sh && ./server/script/.runContainers.sh",
     "install": "concurrently \"(cd server;npm install)\" \"(cd client;npm install)\" \"(cd isomorphic;npm install)\"",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -22,7 +23,8 @@
   },
   "homepage": "https://github.com/denzii/nodejs-ssr-boilerplate#readme",
   "dependencies": {
-    "concurrently": "^7.2.1"
+    "concurrently": "^7.2.1",
+    "dotenv-cli": "^5.1.0"
   },
   "devDependencies": {
     "typescript": "^4.8.0-dev.20220528"
