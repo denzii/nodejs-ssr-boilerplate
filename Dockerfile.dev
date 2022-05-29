@@ -5,6 +5,10 @@ WORKDIR /home/node/root
 COPY . .
 RUN npm install
 
+RUN apk update \
+ && apk add --no-cache jq \
+ && rm -rf /var/cache/apk/*
+ 
 # required as sass depends on native modules which end up being bound onto the container
 # and the container uses alpine so it does not support those native modules required by sass
 # to work around that, have to rebuild sass for alpine 
@@ -12,4 +16,5 @@ RUN (cd client;npm rebuild node-sass)
 
 # same story for the prisma client
 RUN (cd server;npx prisma generate)
+
 CMD ["npm", "run", "start:local"]

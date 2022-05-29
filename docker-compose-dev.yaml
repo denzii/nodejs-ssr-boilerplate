@@ -25,8 +25,15 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - ./server/src:/home/node/root/server/src
+      - ./server/package.json:/home/node/root/server/package.json
+      - ./server/package-lock.json:/home/node/root/server/package-lock.json
       - ./isomorphic/:/home/node/root/isomorphic
+      - ./isomorphic/package.json:/home/node/root/isomorphic/package.json
+      - ./isomorphic/package-lock.json:/home/node/root/isomorphic/package-lock.json
       - ./client/src/:/home/node/root/client/src
+      - ./client/package.json:/home/node/root/client/package.json
+      - ./client/package-lock.json:/home/node/root/client/package-lock.json
+
     links:
       - postgresql
     restart: on-failure
@@ -37,5 +44,6 @@ services:
       - 3000:3000
       - 34669:34669 # browser-refresh port
 volumes:
+
   postgres-data:
     driver: local
