@@ -19,7 +19,7 @@
 - [ ] Universal Routing through Express
 - [ ] Prisma Schema with a CMS Domain for managing pages & content
 - [ ] Auth Server
-- [ ] Graphql over Web sockets for async requests to the server
+- [ ] Graphql for async requests to the server
 - [x] Prisma ORM
 - [ ] Code generation for graphql from a prisma schema to avoid writing boilerplate
 - [ ] Repositories & Express endpoints to match the CMS Domain DB data
